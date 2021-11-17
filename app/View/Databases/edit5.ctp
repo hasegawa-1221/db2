@@ -1,0 +1,272 @@
+<?php
+$this->assign('title', '企画編集 | 数理技術相談データベース');
+?>
+
+<?php echo $this->Form->create(null, array('type' => 'post', 'url' => 'edit5')); ?>
+	<div class="container">
+		<h2>企画応募</h2>
+		
+		<ul class="page-navi">
+			<li class="disabled">
+				企画の概要
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="disabled">
+				企画の詳細
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="disabled">
+				経費
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="disabled">
+				参加について
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="active">
+				責任者
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="disabled">
+				入力内容確認
+			</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li class="disabled">
+				完了
+			</li>
+		</ul>
+		<hr>
+		
+		<?php echo $this->Form->submit('一時保存する', array('div' => false, 'class' => 'btn btn-primary', 'name' => 'update', 'style' => 'display:none;')); ?>
+		
+		<div class="manager-area">
+			<?php if ( !empty($event['EventManager']) ): ?>
+				<?php $i = 0; ?>
+				<?php foreach ( $event['EventManager'] as $event_manager ): ?>
+					<h4>
+						運営責任者<?php echo $i+ 1; ?>
+					<?php
+					if ( $i != 0 )
+					{
+						// 1人め以外は削除可能
+						$num = $i + 1 ;
+						echo $this->Html->link('削除', array('action' => 'manager_del', $event_manager['id']), array('class' => 'btn btn-sm btn-danger'), '運営責任者' . $num . 'を削除しますか？編集中の場合は一時保存後に削除して下さい。');
+					}
+					?>
+					</h4>
+					<table class="table2 table-bordered table-sm">
+						<tr>
+							<th class="bg-light" nowrap="nowrap">参加者ID<br>(メールアドレス)<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.id', array('type' => 'hidden', 'value' => $event_manager['id'])); ?>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.email', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+							<th class="bg-light">&nbsp;</th>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th class="bg-light" nowrap="nowrap">姓名<span class="text-danger">*</span></th>
+							<td>
+								<div class="container">
+									<div class="row">
+										<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.lastname', array('type' => 'text', 'div' => false, 'label' => false, 'error' => false, 'class' => 'form-control form-control-sm col-5', 'placeholder' => '姓')); ?>&nbsp;
+										<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.firstname', array('type' => 'text', 'div' => false, 'label' => false, 'error' => false, 'class' => 'form-control form-control-sm col-5', 'placeholder' => '名')); ?>
+										<?php echo $this->Form->error('EventManager.' . $event_manager['id'] . '.lastname'); ?>
+										<?php echo $this->Form->error('EventManager.' . $event_manager['id'] . '.firstname'); ?>
+									</div>
+								</div>
+							</td>
+							<th class="bg-light" nowrap="nowrap">フリガナ<span class="text-danger">*</span></th>
+							<td>
+								<div class="container">
+									<div class="row">
+										<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.lastname_kana', array('type' => 'text', 'div' => false, 'label' => false, 'error' => false, 'class' => 'form-control form-control-sm col-5', 'placeholder' => 'セイ')); ?>&nbsp;
+										<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.firstname_kana', array('type' => 'text', 'div' => false, 'label' => false, 'error' => false, 'class' => 'form-control form-control-sm col-5', 'placeholder' => 'メイ')); ?>
+										<?php echo $this->Form->error('EventManager.' . $event_manager['id'] . '.lastname_kana'); ?>
+										<?php echo $this->Form->error('EventManager.' . $event_manager['id'] . '.firstname_kana'); ?>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">所属機関<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.organization', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+							<th class="bg-light">所属部局<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.department', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">職名</th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.job_title', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+							<th class="bg-light">URL</th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.url', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light" nowrap="nowrap">郵便番号<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.zip', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm', 'onKeyUp' => 'AjaxZip3.zip2addr(this,"","data[EventManager][' . $event_manager['id'] . '][prefecture_id]", "data[EventManager][' . $event_manager['id'] . '][city]")')); ?>
+								<span class="text-danger small">例）000-0000</span>
+								<?php echo $this->Form->error('EventManager.' . $event_manager['id'] . '.zip'); ?>
+							</td>
+							<th class="bg-light">都道府県<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.prefecture_id', array('type' => 'select', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm', 'options' => $prefectures)); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">市区町村<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.city', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+							<th class="bg-light">番地・建物名・部屋番号<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.address', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">TEL<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.tel', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+								<span class="text-danger small">例）000-00-0000</span>								
+							</td>
+							<th class="bg-light">FAX</th>
+							<td>
+								<?php echo $this->Form->input('EventManager.' . $event_manager['id'] . '.fax', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control form-control-sm')); ?>
+							</td>
+						</tr>
+					</table>
+					<hr>
+					<br>
+					<?php $i++; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
+		
+		<div class="text-right">
+			<?php echo $this->Form->submit('運営責任者を増やす', array('div' => false, 'name' => 'manager', 'class' => 'btn btn-info')); ?>
+		</div>
+		<br>
+		
+		<div class="affair-area">
+			<?php if ( !empty($event['EventAffair']) ): ?>
+				<?php $i = 0; ?>
+				<?php foreach ( $event['EventAffair'] as $event_affair ): ?>
+					<h4>
+						事務担当者<?php echo $i+ 1; ?>
+						<?php
+						if ( $i != 0 )
+						{
+							// 1人め以外は削除可能
+							$num = $i + 1;
+							echo $this->Html->link('削除', array('action' => 'affair_del', $event_affair['id']), array('class' => 'btn btn-sm btn-danger'), '事務担当者' . $num . 'を削除しますか？編集中の場合は一時保存後に削除して下さい。');
+						}
+						?>
+					</h4>
+					<table class="table2 table-bordered table-sm">
+						<tr>
+							<th class="bg-light" nowrap="nowrap">参加者ID<br>(メールアドレス)<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.id', array('type' => 'hidden', 'value' => $event_affair['id'])); ?>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.email', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+							<th class="bg-light">&nbsp;</th>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th class="bg-light" nowrap="nowrap">姓名<span class="text-danger">*</span></th>
+							<td>
+								<div class="container">
+									<div class="row">
+										<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.lastname', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control col-5', 'placeholder' => '姓')); ?>&nbsp;
+										<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.firstname', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control col-5', 'placeholder' => '名')); ?>
+									</div>
+								</div>
+							</td>
+							<th class="bg-light" nowrap="nowrap">フリガナ<span class="text-danger">*</span></th>
+							<td>
+								<div class="container">
+									<div class="row">
+										<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.lastname_kana', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control col-5', 'placeholder' => 'せい')); ?>&nbsp;
+										<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.firstname_kana', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control col-5', 'placeholder' => 'めい')); ?>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">所属機関<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.organization', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+							<th class="bg-light">所属部局<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.department', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">職名</th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.job_title', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+							<th class="bg-light">URL</th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.url', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light" nowrap="nowrap">郵便番号<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.zip', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control', 'onKeyUp' => 'AjaxZip3.zip2addr(this,"","data[EventAffair][' . $event_affair['id'] . '][prefecture_id]", "data[EventAffair][' . $event_affair['id'] . '][city]")')); ?>
+								<span class="text-danger small">例）000-0000</span>
+								<?php echo $this->Form->error('EventAffair.' . $event_affair['id'] . '.zip'); ?>
+							</td>
+							<th class="bg-light">都道府県<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.prefecture_id', array('type' => 'select', 'div' => false, 'label' => false, 'class' => 'form-control', 'options' => $prefectures)); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">市区町村<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.city', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+							<th class="bg-light">番地・建物名・部屋番号<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.address', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">TEL<span class="text-danger">*</span></th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.tel', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+								<span class="text-danger small">例）000-00-0000</span>
+							</td>
+							<th class="bg-light">FAX</th>
+							<td>
+								<?php echo $this->Form->input('EventAffair.' . $event_affair['id'] . '.fax', array('type' => 'text', 'div' => false, 'label' => false, 'class' => 'form-control')); ?>
+							</td>
+						</tr>
+					</table>
+					<hr>
+					<?php $i++; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
+		<div class="text-right">
+			<?php echo $this->Form->submit('事務担当者を増やす', array('div' => false, 'name' => 'affair', 'class' => 'btn btn-info')); ?>
+		</div>
+		<br>
+		
+		<div class="text-center">
+			<?php echo $this->Html->link('戻る', array('action' => 'edit4'), array('class' => 'btn btn-secondary')); ?>&nbsp;&nbsp;
+			<?php echo $this->Form->submit('一時保存する', array('div' => false, 'class' => 'btn btn-primary', 'name' => 'update')); ?>&nbsp;&nbsp;
+			<?php echo $this->Form->button('次へ', array('type' => 'button', 'div' => false, 'class' => 'btn btn-success', 'name' => 'confirm', 'onclick' => 'submit();')); ?>
+		</div>
+	</div>
+<?php echo $this->Form->end(); ?>

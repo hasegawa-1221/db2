@@ -1,0 +1,13 @@
+{
+  "name": "SiteNameExample",
+  "short_name": "Accident",
+  "icons": [{
+      "src": "/accident/img/icon.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    }],
+  "start_url": "/accident/",
+  "display": "standalone",
+  "gcm_sender_id": "20886208061",
+  "gcm_user_visible_only": true
+}
